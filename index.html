@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probionis - Early Disease Diagnosis Vision</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-yellow: #FFD700;
+            --primary-green: #90EE90;
+            --accent-color: #32CD32;
+            --text-white: #ffffff;
+            --text-light: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --white: #ffffff;
+            --black: #000000;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(30, 30, 30, 0.9);
+            --about-bg: #111111;
+            --logo-blue: #0096FF;
+            --hero-bg: #f8f9fa;
+            --hero-text: #333333;
+        }
+        
+        body {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.7;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            font-size: 18px;
+        }
+        
+        /* Header Styles */
+        .header {
+            background-color: var(--black);
+            padding: 20px 40px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--logo-blue);
+            letter-spacing: -0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-link {
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-yellow);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-link.active {
+            color: var(--primary-yellow);
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 16px;
+            right: 16px;
+            height: 2px;
+            background-color: var(--primary-yellow);
+        }
+        
+        /* Mobile Menu Styles */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+        
+        .mobile-nav-links {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--black);
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            z-index: 999;
+        }
+        
+        .mobile-nav-links.active {
+            display: flex;
+        }
+        
+        .mobile-nav-link {
+            color: var(--text-white);
+            text-decoration: none;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav-link:last-child {
+            border-bottom: none;
+        }
+        
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
+            color: var(--primary-yellow);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Hero Section - Modified to match the image */
+        .hero-section {
+            background: #ffffff;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+            padding: 60px 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 1000px;
+            padding: 0 40px;
+            z-index: 2;
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .tagline-container {
+            margin-bottom: 40px;
+            width: 100%;
+        }
+        
+        .tagline {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 0;
+            padding: 0;
+            color: #000000;
+            text-align: center;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        
+        .tagline-emphasis {
+            font-weight: 700;
+            color: #0096FF;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tagline-emphasis::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary-yellow), transparent);
+            border-radius: 2px;
+        }
+        
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Vision Section - Now directly below hero */
+        .vision-section {
+            margin: 0;
+            padding: 80px 0;
+            border-radius: 0;
+            background: var(--dark-bg);
+        }
+        
+        .section-title {
+            font-size: 2.8rem;
+            color: var(--text-white);
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary-yellow), transparent);
+        }
+        
+        .vision-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .vision-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .vision-point:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.2);
+        }
+        
+        .vision-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-yellow), #FFA500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--black);
+            font-size: 2rem;
+            flex-shrink: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+        
+        .vision-point:hover .vision-icon {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+        }
+        
+        .vision-text {
+            flex: 1;
+        }
+        
+        .vision-text h3 {
+            font-size: 1.7rem;
+            color: var(--text-white);
+            margin-bottom: 15px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .vision-text p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        
+        .meaning-section {
+            margin: 100px 0;
+            text-align: center;
+        }
+        
+        .meaning-title {
+            font-size: 3.2rem;
+            color: var(--text-white);
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        
+        .meaning-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 50px;
+            font-style: italic;
+            font-weight: 400;
+        }
+        
+        .meaning-content {
+            font-size: 1.4rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .highlight {
+            color: var(--primary-yellow);
+            font-weight: 600;
+        }
+        
+        .footer-text {
+            text-align: center;
+            margin-top: 100px;
+            padding: 50px 20px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            line-height: 1.6;
+        }
+
+        /* About Section Styles */
+        .about-section {
+            margin: 80px 0;
+            padding: 80px 0;
+            border-radius: 0;
+            background: var(--about-bg);
+            position: relative;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-yellow), transparent);
+        }
+
+        .about-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-yellow), transparent);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about-text-block {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: rgba(20, 20, 20, 0.8);
+            border-left: 4px solid var(--primary-yellow);
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .about-text-block:hover {
+            background: rgba(25, 25, 25, 0.9);
+            transform: translateX(10px);
+        }
+
+        .about-text-block h3 {
+            font-size: 1.8rem;
+            color: var(--text-white);
+            margin-bottom: 20px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .about-text-block p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .research-section {
+            margin: 100px 0;
+            text-align: center;
+        }
+
+        .research-title {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        .research-content {
+            font-size: 1.3rem;
+            margin-bottom: 50px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            color: var(--text-muted);
+            text-align: left;
+            background: rgba(20, 20, 20, 0.8);
+            padding: 40px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-yellow);
+        }
+
+        .terms-section {
+            margin: 80px 0;
+        }
+
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .term-card {
+            background: rgba(20, 20, 20, 0.8);
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-yellow);
+            transition: all 0.3s ease;
+        }
+
+        .term-card:hover {
+            background: rgba(25, 25, 25, 0.9);
+            transform: translateY(-5px);
+        }
+
+        .term-card h3 {
+            font-size: 1.5rem;
+            color: var(--text-white);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .term-card p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Hidden class for page switching */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .vision-content {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+            
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-link {
+                font-size: 1rem;
+                padding: 6px 12px;
+            }
+            
+            .hero-section {
+                margin-top: 60px;
+                min-height: 50vh;
+                padding: 40px 20px;
+            }
+            
+            /* Increased font size for mobile devices */
+            .tagline {
+                font-size: 3rem; /* Increased from 2.5rem */
+            }
+            
+            .content-wrapper {
+                padding: 40px 20px;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .meaning-title {
+                font-size: 2.4rem;
+            }
+            
+            .meaning-content {
+                font-size: 1.2rem;
+                padding: 25px;
+            }
+            
+            .vision-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .vision-point {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px;
+            }
+            
+            .vision-icon {
+                align-self: center;
+                margin-bottom: 20px;
+            }
+            
+            .about-text-block {
+                padding: 20px;
+            }
+
+            .about-text-block h3 {
+                font-size: 1.5rem;
+            }
+
+            .about-text-block p {
+                font-size: 1.1rem;
+            }
+
+            .research-title {
+                font-size: 2.2rem;
+            }
+
+            .research-content {
+                font-size: 1.1rem;
+                padding: 25px;
+            }
+
+            .terms-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-text {
+                padding: 30px 15px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .tagline {
+                font-size: 2.5rem; /* Increased from 2rem */
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .meaning-title {
+                font-size: 2rem;
+            }
+            
+            .meaning-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .vision-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .vision-text h3 {
+                font-size: 1.4rem;
+            }
+            
+            .vision-text p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo" id="logo">Probionis</div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-page="home">Home</a>
+                <a href="#" class="nav-link" data-page="about">About</a>
+            </div>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="mobile-nav-links" id="mobile-nav-links">
+            <a href="#" class="mobile-nav-link active" data-page="home">Home</a>
+            <a href="#" class="mobile-nav-link" data-page="about">About</a>
+        </div>
+    </header>
+    
+    <!-- Home Page -->
+    <div id="home-page" class="page active">
+        <!-- Hero Section - Modified to match the image -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="tagline-container">
+                    <h1 class="tagline">
+                        Intelligence that <span class="tagline-emphasis">perceives</span> diseases before they manifest.
+                    </h1>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Vision Section - Now directly below hero -->
+        <section class="vision-section">
+            <div class="content-wrapper">
+                <h2 class="section-title">Vision of Early Disease Diagnosis</h2>
+                
+                <div class="vision-content">
+                    <div class="vision-point">
+                        <div class="vision-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="vision-text">
+                            <h3>Early Parkinson's Detection</h3>
+                            <p>Probionis utilizes advanced metabolic analysis to identify alpha-synuclein aggregation patterns and dopamine depletion signatures years before motor symptoms appear in Parkinson's disease.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="vision-point">
+                        <div class="vision-icon">
+                            <i class="fas fa-dna"></i>
+                        </div>
+                        <div class="vision-text">
+                            <h3>Metabolic Signature Analysis</h3>
+                            <p>Our technology detects subtle changes in metabolic pathways associated with neurodegenerative diseases and cancer through sophisticated biomarker analysis.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="vision-point">
+                        <div class="vision-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="vision-text">
+                            <h3>AI-Powered Predictive Intelligence</h3>
+                            <p>Probionis employs multi-modal AI systems to analyze complex biological data, providing early warning for multiple diseases with interpretable clinical insights.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="vision-point">
+                        <div class="vision-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="vision-text">
+                            <h3>Proactive Healthcare Transformation</h3>
+                            <p>By detecting diseases at their earliest metabolic stages, Probionis enables timely interventions that can slow progression and dramatically improve patient quality of life.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="content-wrapper">
+            <section class="meaning-section">
+                <h2 class="meaning-title">The Meaning of Probionis</h2>
+                <div class="meaning-subtitle">From Greek/Latin Roots: Pro Bio</div>
+                <div class="meaning-content">
+                    <p><span class="highlight">Probionis</span> combines "Pro" (forward, advance) with "Bios" (life), embodying the concept of <span class="highlight">advancing life through early detection</span> and <span class="highlight">proactive health intervention</span>.</p>
+                    <p>Our name represents the <span class="highlight">forward-looking intelligence that protects biological systems</span> - detecting the earliest molecular signatures of disease before they manifest as clinical symptoms, allowing for preventive interventions that preserve and extend healthy life.</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="about-page" class="page">
+        <div class="content-wrapper">
+            <section class="about-section">
+                <h2 class="section-title">About Probionis Research</h2>
+                
+                <div class="about-content">
+                    <div class="about-text-block">
+                        <h3>The Critical Challenge: Late Disease Diagnosis</h3>
+                        <p>Traditional diagnostic methods for Parkinson's disease and other neurodegenerative conditions often identify pathology only after significant neuronal loss has occurred, when treatment options are limited. Similarly, cancer detection frequently happens after substantial progression. This diagnostic delay represents one of the most significant challenges in modern medicine.</p>
+                    </div>
+                    
+                    <div class="about-text-block">
+                        <h3>Our Pioneering Research Focus</h3>
+                        <p>Probionis is revolutionizing disease detection by focusing on the earliest metabolic and molecular alterations, long before physical symptoms appear. Our research centers on analyzing metabolic signatures, protein aggregation patterns, and mitochondrial dysfunction that precede clinical manifestation by years.</p>
+                    </div>
+                    
+                    <div class="about-text-block">
+                        <h3>Transformative Technology Approach</h3>
+                        <p>We've developed a groundbreaking approach that combines advanced spectroscopic techniques with sophisticated multi-agent AI systems. This enables us to detect subtle biological changes that precede disease manifestation by months or even years, providing an unprecedented window for early intervention.</p>
+                    </div>
+                    
+                    <div class="about-text-block">
+                        <h3>Dual Focus: Neurodegeneration & Oncology</h3>
+                        <p>Probionis technology simultaneously addresses two critical healthcare challenges: early detection of Parkinson's disease through alpha-synuclein and metabolic analysis, and early cancer detection through metabolic reprogramming signatures. This dual approach maximizes our impact on global health.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="research-section">
+                <h2 class="research-title">Scientific Foundation</h2>
+                <div class="research-content">
+                    <p>Our research builds upon established scientific principles in both neurodegeneration and oncology. For Parkinson's disease, we focus on detecting early alpha-synuclein aggregation and mitochondrial dysfunction. For cancer, we analyze metabolic reprogramming similar to the Warburg effect.</p>
+                    <p>Probionis innovation lies in detecting these early changes through analysis of <span class="highlight">molecular signatures</span> using advanced spectroscopic techniques. Each disease state produces unique molecular patterns that serve as early warning signals, allowing precise identification and risk assessment.</p>
+                    <p>Our multi-agent AI system interprets these complex biological signatures, distinguishing between normal aging processes and the distinctive patterns associated with early-stage disease progression. This approach enables detection at the molecular level, providing critical lead time for preventive interventions.</p>
+                </div>
+            </section>
+            
+            <section class="terms-section">
+                <h2 class="section-title">Core Scientific Concepts</h2>
+                
+                <div class="terms-grid">
+                    <div class="term-card">
+                        <h3>Alpha-Synuclein Pathology</h3>
+                        <p>The abnormal aggregation of alpha-synuclein proteins that forms Lewy bodies, a hallmark of Parkinson's disease, detectable years before motor symptoms appear.</p>
+                    </div>
+                    
+                    <div class="term-card">
+                        <h3>Metabolic Reprogramming</h3>
+                        <p>Early changes in cellular metabolism that occur in both neurodegenerative diseases and cancer, serving as reliable indicators of pathological processes.</p>
+                    </div>
+                    
+                    <div class="term-card">
+                        <h3>Mitochondrial Dysfunction</h3>
+                        <p>Impaired energy production in cells that represents an early event in Parkinson's disease progression and other neurodegenerative conditions.</p>
+                    </div>
+                    
+                    <div class="term-card">
+                        <h3>Molecular Signatures</h3>
+                        <p>Distinctive patterns in biological molecules that serve as fingerprints for specific disease states, enabling early detection through advanced analysis.</p>
+                    </div>
+                    
+                    <div class="term-card">
+                        <h3>Multi-Agent AI System</h3>
+                        <p>Our specialized artificial intelligence architecture where multiple AI agents collaboratively analyze different aspects of biological data, providing comprehensive diagnostic assessments.</p>
+                    </div>
+                    
+                    <div class="term-card">
+                        <h3>Early Biomarker Detection</h3>
+                        <p>The paradigm-shifting approach of identifying diseases through fundamental biological changes rather than waiting for clinical symptoms, enabling earliest possible intervention.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <div class="footer-text">
+        Email: probionis@gmail.com<br>
+        © 2026 Probionis - Transforming Early Disease Detection
+    </div>
+
+    <script>
+        // Simple page navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+            const pages = document.querySelectorAll('.page');
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileNavLinks = document.getElementById('mobile-nav-links');
+            const logo = document.getElementById('logo');
+            
+            // Function to handle navigation
+            function handleNavigation(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and pages
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                pages.forEach(page => page.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Show the corresponding page
+                const pageId = this.getAttribute('data-page') + '-page';
+                document.getElementById(pageId).classList.add('active');
+                
+                // Close mobile menu if open
+                mobileNavLinks.classList.remove('active');
+                
+                // Scroll to top when switching pages
+                window.scrollTo(0, 0);
+            }
+            
+            // Function to navigate to home page
+            function navigateToHome() {
+                // Remove active class from all links and pages
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                pages.forEach(page => page.classList.remove('active'));
+                
+                // Add active class to home link
+                document.querySelector('.nav-link[data-page="home"]').classList.add('active');
+                document.querySelector('.mobile-nav-link[data-page="home"]').classList.add('active');
+                
+                // Show home page
+                document.getElementById('home-page').classList.add('active');
+                
+                // Close mobile menu if open
+                mobileNavLinks.classList.remove('active');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
+            
+            // Add click event to all navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', handleNavigation);
+            });
+            
+            // Add click event to logo for home navigation
+            logo.addEventListener('click', navigateToHome);
+            
+            // Mobile menu toggle
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileNavLinks.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.header-content') && !e.target.closest('.mobile-nav-links')) {
+                    mobileNavLinks.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
