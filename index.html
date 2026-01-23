@@ -222,6 +222,117 @@
             border-radius: 2px;
         }
         
+        /* AI/Biology Animations */
+        .animation-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .neuron {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--logo-blue);
+            border-radius: 50%;
+            animation: neuronPulse 3s infinite;
+        }
+        
+        .neuron::before, .neuron::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--logo-blue), transparent);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .neuron::before {
+            right: 100%;
+        }
+        
+        .neuron::after {
+            left: 100%;
+        }
+        
+        .dna-strand {
+            position: absolute;
+            width: 100px;
+            height: 200px;
+            top: 20%;
+            right: 10%;
+            opacity: 0.7;
+        }
+        
+        .dna-base {
+            position: absolute;
+            width: 4px;
+            height: 30px;
+            background: var(--primary-yellow);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .dna-connector {
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+            top: 15px;
+        }
+        
+        .dna-connector.left {
+            transform: rotate(45deg);
+            left: 0;
+        }
+        
+        .dna-connector.right {
+            transform: rotate(-45deg);
+            right: 0;
+        }
+        
+        .ai-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            animation: float 8s infinite linear;
+        }
+        
+        @keyframes neuronPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
         .content-wrapper {
             max-width: 1200px;
             margin: 0 auto;
@@ -360,9 +471,103 @@
             font-weight: 600;
         }
         
+        /* Team Section */
+        .team-section {
+            margin: 100px 0;
+            padding: 80px 0;
+            background: var(--about-bg);
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .team-member {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+        }
+        
+        .member-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--logo-blue), var(--primary-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2.5rem;
+            color: var(--text-white);
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(0, 150, 255, 0.3);
+        }
+        
+        .team-member:hover .member-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 30px rgba(0, 150, 255, 0.5);
+        }
+        
+        .member-name {
+            font-size: 1.6rem;
+            color: var(--text-white);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .member-role {
+            font-size: 1.1rem;
+            color: var(--primary-yellow);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .member-bio {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .member-linkedin {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--logo-blue);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(0, 150, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .member-linkedin:hover {
+            background: rgba(0, 150, 255, 0.2);
+            transform: scale(1.05);
+        }
+        
         .footer-text {
             text-align: center;
-            margin-top: 100px;
+            margin-top: 60px;
             padding: 50px 20px;
             color: var(--text-muted);
             font-size: 1.1rem;
@@ -502,16 +707,26 @@
         /* Hidden class for page switching */
         .page {
             display: none;
+            animation: fadeIn 0.5s ease;
         }
 
         .page.active {
             display: block;
         }
         
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
         /* Responsive Design */
         @media (max-width: 1024px) {
             .vision-content {
                 grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
         }
         
@@ -585,6 +800,21 @@
                 margin-bottom: 20px;
             }
             
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .team-member {
+                padding: 25px;
+            }
+            
+            .member-icon {
+                width: 100px;
+                height: 100px;
+                font-size: 2rem;
+            }
+            
             .about-text-block {
                 padding: 20px;
             }
@@ -646,6 +876,20 @@
             .vision-text p {
                 font-size: 1rem;
             }
+            
+            .member-icon {
+                width: 90px;
+                height: 90px;
+                font-size: 1.8rem;
+            }
+            
+            .member-name {
+                font-size: 1.4rem;
+            }
+            
+            .member-role {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -657,6 +901,7 @@
             <div class="nav-links">
                 <a href="#" class="nav-link active" data-page="home">Home</a>
                 <a href="#" class="nav-link" data-page="about">About</a>
+                <a href="#" class="nav-link" data-page="team">Team</a>
             </div>
             <button class="mobile-menu-toggle" id="mobile-menu-toggle">
                 <i class="fas fa-bars"></i>
@@ -665,13 +910,15 @@
         <div class="mobile-nav-links" id="mobile-nav-links">
             <a href="#" class="mobile-nav-link active" data-page="home">Home</a>
             <a href="#" class="mobile-nav-link" data-page="about">About</a>
+            <a href="#" class="mobile-nav-link" data-page="team">Team</a>
         </div>
     </header>
     
     <!-- Home Page -->
     <div id="home-page" class="page active">
-        <!-- Hero Section - Modified to match the image -->
+        <!-- Hero Section with Animations -->
         <section class="hero-section">
+            <div class="animation-container" id="animation-container"></div>
             <div class="hero-content">
                 <div class="tagline-container">
                     <h1 class="tagline">
@@ -818,6 +1065,89 @@
         </div>
     </div>
     
+    <!-- Team Page -->
+    <div id="team-page" class="page">
+        <div class="content-wrapper">
+            <section class="team-section">
+                <h2 class="section-title">Our Team</h2>
+                
+                <div class="team-grid">
+                    <!-- Avi Sinha -->
+                    <div class="team-member">
+                        <div class="member-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h3 class="member-name">Avi Sinha</h3>
+                        <p class="member-role">Founder</p>
+                        <p class="member-bio">
+                            Completed 12th grade in 2025 with a focus in Biology. National Biology Olympiad (NSEB) qualifier in 2024. Achieved 97th percentile in JEE MAIN Chemistry 2025. Finalist in Mumbai Hacks 2025.
+                        </p>
+                        <a href="https://www.linkedin.com/in/sinh17" target="_blank" class="member-linkedin">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                    </div>
+                    
+                    <!-- Tanmeet Kaur -->
+                    <div class="team-member">
+                        <div class="member-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3 class="member-name">Tanmeet Kaur</h3>
+                        <p class="member-role">Co-Founder</p>
+                        <p class="member-bio">
+                            B.Tech in Computer Science from IGDTUW. Currently working as a Software Engineer at Publicis Sapient with expertise in software development and system architecture.
+                        </p>
+                        <a href="https://www.linkedin.com/in/tanmeet-k/" target="_blank" class="member-linkedin">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                    </div>
+                    
+                    <!-- Harsh Kumar Gaurav -->
+                    <div class="team-member">
+                        <div class="member-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="member-name">Harsh Kumar Gaurav</h3>
+                        <p class="member-role">Co-Founder</p>
+                        <p class="member-bio">
+                            Currently pursuing Masters from IIT Delhi in Neurology and Neuroscience. Specializes in neural network analysis and brain-computer interface technologies.
+                        </p>
+                    </div>
+                    
+                    <!-- Shivam Gulati -->
+                    <div class="team-member">
+                        <div class="member-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="member-name">Shivam Gulati</h3>
+                        <p class="member-role">Co-Founder</p>
+                        <p class="member-bio">
+                            Data Scientist with 10+ years of experience in Artificial Intelligence. Graduated with B.Tech in Computer Science from ITM University. Expert in machine learning and predictive analytics.
+                        </p>
+                        <a href="https://www.linkedin.com/in/shivam-gulati/" target="_blank" class="member-linkedin">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                    </div>
+                    
+                    <!-- Shristi -->
+                    <div class="team-member">
+                        <div class="member-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3 class="member-name">Shristi</h3>
+                        <p class="member-role">Co-Founder</p>
+                        <p class="member-bio">
+                            B.Tech in Computer Science from IGDTUW. Currently working as a Software Engineer at ServiceNow. Specializes in cloud computing and scalable system design.
+                        </p>
+                        <a href="https://www.linkedin.com/in/shristi-90542a1a0/" target="_blank" class="member-linkedin">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
     <div class="footer-text">
         Email: probionis@gmail.com<br>
         © 2026 Probionis
@@ -893,6 +1223,64 @@
                     mobileNavLinks.classList.remove('active');
                 }
             });
+            
+            // Create biology/AI animations
+            function createAnimations() {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                
+                // Create neurons
+                for (let i = 0; i < 12; i++) {
+                    const neuron = document.createElement('div');
+                    neuron.className = 'neuron';
+                    neuron.style.left = `${Math.random() * 100}%`;
+                    neuron.style.top = `${20 + Math.random() * 60}%`;
+                    neuron.style.animationDelay = `${Math.random() * 2}s`;
+                    container.appendChild(neuron);
+                }
+                
+                // Create DNA strands
+                for (let i = 0; i < 3; i++) {
+                    const dna = document.createElement('div');
+                    dna.className = 'dna-strand';
+                    dna.style.top = `${10 + i * 25}%`;
+                    dna.style.left = `${5 + i * 5}%`;
+                    
+                    for (let j = 0; j < 6; j++) {
+                        const base = document.createElement('div');
+                        base.className = 'dna-base';
+                        base.style.top = `${j * 30}px`;
+                        
+                        const leftConnector = document.createElement('div');
+                        leftConnector.className = 'dna-connector left';
+                        leftConnector.style.top = `${j * 30 + 15}px`;
+                        
+                        const rightConnector = document.createElement('div');
+                        rightConnector.className = 'dna-connector right';
+                        rightConnector.style.top = `${j * 30 + 15}px`;
+                        
+                        dna.appendChild(base);
+                        dna.appendChild(leftConnector);
+                        dna.appendChild(rightConnector);
+                    }
+                    
+                    container.appendChild(dna);
+                }
+                
+                // Create AI particles
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'ai-particle';
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+                    particle.style.animationDelay = `${Math.random() * 5}s`;
+                    particle.style.animationDuration = `${5 + Math.random() * 10}s`;
+                    container.appendChild(particle);
+                }
+            }
+            
+            // Initialize animations
+            createAnimations();
         });
     </script>
 </body>
