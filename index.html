@@ -571,6 +571,31 @@
             line-height: 1.6;
         }
 
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-white);
+            text-decoration: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+            color: var(--primary-yellow);
+        }
+
+        .instagram-icon {
+            color: #E4405F;
+            font-size: 1.3rem;
+        }
+
         /* About Section Styles */
         .about-section {
             margin: 80px 0;
@@ -1111,18 +1136,6 @@
                             <i class="fab fa-linkedin"></i> LinkedIn
                         </a>
                     </div>
-                    
-                    <!-- Shristi -->
-                    <div class="team-member">
-                        <div class="member-icon">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <h3 class="member-name">Shristi</h3>
-                        <p class="member-role">Co-Founder</p>
-                        <a href="https://www.linkedin.com/in/shristi-90542a1a0/" target="_blank" class="member-linkedin">
-                            <i class="fab fa-linkedin"></i> LinkedIn
-                        </a>
-                    </div>
                 </div>
             </section>
         </div>
@@ -1130,6 +1143,9 @@
     
     <div class="footer-text">
         Email: probionis@gmail.com<br>
+        <a href="https://www.instagram.com/probionis_/" target="_blank" class="social-link">
+            <i class="fab fa-instagram instagram-icon"></i> @probionis_
+        </a><br><br>
         © 2026 Probionis
     </div>
 
