@@ -41,9 +41,162 @@
             font-size: 18px;
         }
         
+        /* Space/Galaxy Background Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.3), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.3), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.4), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.3), transparent),
+                radial-gradient(2px 2px at 160px 120px, rgba(255, 255, 255, 0.2), transparent),
+                radial-gradient(3px 3px at 200px 100px, rgba(255, 255, 255, 0.2), transparent),
+                radial-gradient(1px 1px at 250px 60px, rgba(255, 255, 255, 0.3), transparent),
+                radial-gradient(2px 2px at 280px 150px, rgba(255, 255, 255, 0.2), transparent),
+                radial-gradient(1px 1px at 320px 90px, rgba(255, 255, 255, 0.4), transparent),
+                radial-gradient(2px 2px at 350px 110px, rgba(255, 255, 255, 0.3), transparent);
+            background-size: 400px 400px;
+            z-index: -1;
+            pointer-events: none;
+            animation: starShift 120s linear infinite;
+        }
+        
+        @keyframes starShift {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 400px 400px;
+            }
+        }
+        
+        /* Add space effect to dark sections */
+        .vision-section,
+        .team-section,
+        .about-section {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .vision-section::before,
+        .team-section::before,
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 5% 10%, rgba(255, 255, 255, 0.3), transparent),
+                radial-gradient(1px 1px at 15% 30%, rgba(255, 255, 255, 0.2), transparent),
+                radial-gradient(2px 2px at 25% 70%, rgba(255, 255, 255, 0.25), transparent),
+                radial-gradient(1px 1px at 35% 50%, rgba(255, 255, 255, 0.3), transparent),
+                radial-gradient(2px 2px at 45% 90%, rgba(255, 255, 255, 0.2), transparent),
+                radial-gradient(1px 1px at 55% 40%, rgba(255, 255, 255, 0.3), transparent),
+                radial-gradient(1px 1px at 65% 80%, rgba(255, 255, 255, 0.25), transparent),
+                radial-gradient(2px 2px at 75% 20%, rgba(255, 255, 255, 0.2), transparent),
+                radial-gradient(1px 1px at 85% 60%, rgba(255, 255, 255, 0.3), transparent),
+                radial-gradient(2px 2px at 95% 85%, rgba(255, 255, 255, 0.25), transparent);
+            background-size: 100% 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* Ensure content stays above the space effect */
+        .vision-section > .content-wrapper,
+        .team-section > .content-wrapper,
+        .about-section > .content-wrapper,
+        .vision-content,
+        .team-grid,
+        .about-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Dark cards also get subtle space effect */
+        .vision-point,
+        .team-member,
+        .about-text-block,
+        .meaning-content,
+        .term-card,
+        .research-content {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .vision-point::before,
+        .team-member::before,
+        .about-text-block::before,
+        .meaning-content::before,
+        .term-card::before,
+        .research-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 10% 15%, rgba(255, 255, 255, 0.1), transparent),
+                radial-gradient(1px 1px at 30% 40%, rgba(255, 255, 255, 0.08), transparent),
+                radial-gradient(1px 1px at 50% 75%, rgba(255, 255, 255, 0.05), transparent),
+                radial-gradient(1px 1px at 70% 25%, rgba(255, 255, 255, 0.1), transparent),
+                radial-gradient(1px 1px at 90% 60%, rgba(255, 255, 255, 0.08), transparent);
+            z-index: 0;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        
+        /* Ensure text stays above the effect */
+        .vision-text,
+        .member-name,
+        .member-role,
+        .member-linkedin,
+        .about-text-block > *,
+        .meaning-content p,
+        .term-card > *,
+        .research-content p {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Footer space effect */
+        .footer-text {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-text::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.2), transparent),
+                radial-gradient(1px 1px at 40% 60%, rgba(255, 255, 255, 0.15), transparent),
+                radial-gradient(2px 2px at 60% 40%, rgba(255, 255, 255, 0.2), transparent),
+                radial-gradient(1px 1px at 80% 70%, rgba(255, 255, 255, 0.15), transparent);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .footer-text > * {
+            position: relative;
+            z-index: 1;
+        }
+        
         /* Header Styles */
         .header {
-            background-color: var(--black);
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
             padding: 20px 40px;
             position: fixed;
             width: 100%;
@@ -128,7 +281,8 @@
             top: 100%;
             left: 0;
             right: 0;
-            background-color: var(--black);
+            background-color: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(10px);
             padding: 20px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
             border-top: 1px solid rgba(255, 215, 0, 0.2);
@@ -435,6 +589,7 @@
         .meaning-section {
             margin: 100px 0;
             text-align: center;
+            position: relative;
         }
         
         .meaning-title {
@@ -663,6 +818,7 @@
         .research-section {
             margin: 100px 0;
             text-align: center;
+            position: relative;
         }
 
         .research-title {
@@ -689,6 +845,7 @@
 
         .terms-section {
             margin: 80px 0;
+            position: relative;
         }
 
         .terms-grid {
