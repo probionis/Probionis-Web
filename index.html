@@ -75,6 +75,56 @@
             }
         }
         
+        /* Shooting Star Container */
+        .shooting-star-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+            border-radius: 1px;
+            opacity: 0;
+            transform: rotate(-45deg);
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+        }
+        
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.8);
+        }
+        
+        @keyframes shootStar {
+            0% {
+                opacity: 0;
+                transform: translateX(0) translateY(0) rotate(-45deg) scale(0.5);
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(1000px) translateY(1000px) rotate(-45deg) scale(1);
+            }
+        }
+        
         /* Add space effect to dark sections */
         .vision-section,
         .team-section,
@@ -1071,6 +1121,9 @@
     </style>
 </head>
 <body>
+    <!-- Shooting Star Container -->
+    <div class="shooting-star-container" id="shooting-star-container"></div>
+    
     <!-- Header -->
     <header class="header">
         <div class="header-content">
@@ -1434,6 +1487,74 @@
             
             // Initialize animations
             createAnimations();
+            
+            // Create shooting stars function
+            function createShootingStar() {
+                const container = document.getElementById('shooting-star-container');
+                if (!container) return;
+                
+                // Create a new shooting star
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'shooting-star';
+                
+                // Random starting position (from top or side)
+                const startFromTop = Math.random() > 0.5;
+                let startX, startY;
+                
+                if (startFromTop) {
+                    // Start from top edge
+                    startX = Math.random() * 100;
+                    startY = -5;
+                } else {
+                    // Start from left edge
+                    startX = -5;
+                    startY = Math.random() * 50; // Start from top half
+                }
+                
+                shootingStar.style.left = `${startX}%`;
+                shootingStar.style.top = `${startY}%`;
+                
+                // Random animation duration (2-4 seconds)
+                const duration = 2 + Math.random() * 2;
+                shootingStar.style.animation = `shootStar ${duration}s ease-out forwards`;
+                
+                // Random size variation
+                const scale = 0.7 + Math.random() * 0.6;
+                shootingStar.style.transform = `rotate(-45deg) scale(${scale})`;
+                
+                // Add to container
+                container.appendChild(shootingStar);
+                
+                // Remove after animation completes
+                setTimeout(() => {
+                    if (shootingStar.parentNode === container) {
+                        container.removeChild(shootingStar);
+                    }
+                }, duration * 1000);
+            }
+            
+            // Create shooting stars at regular intervals
+            function startShootingStars() {
+                // Create first shooting star after 2 seconds
+                setTimeout(() => {
+                    createShootingStar();
+                    
+                    // Then create one every 10 seconds
+                    setInterval(() => {
+                        createShootingStar();
+                        
+                        // Occasionally create 2 stars close together
+                        if (Math.random() > 0.7) {
+                            setTimeout(() => {
+                                createShootingStar();
+                            }, 500);
+                        }
+                    }, 10000); // Every 10 seconds
+                }, 2000);
+            }
+            
+            // Start shooting stars
+            startShootingStars();
         });
     </script>
 </body>
